@@ -36,7 +36,8 @@ const initApp = async () => {
     app.get('/api/home');
     app.use('/api/home', (req, res, next) => {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end('Hi There!');
+        //res.end('Hi There!');
+        res.end(JSON.stringify(process.env));
         console.log('aqui');
         next();
     });
