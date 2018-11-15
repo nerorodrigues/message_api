@@ -1,6 +1,6 @@
-const { createServer } = require('http');
+const http = require('http');
 
-httpServer = createServer((request, response) => {
+httpServer =  http.createServer((request, response) => {
     response.writeHead(200, { 'Content-Type': 'text/plain'});
     response.end('Hi There!');
 });
