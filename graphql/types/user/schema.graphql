@@ -1,0 +1,9 @@
+type User{
+    id: ID!,
+    nome: String!,
+    sobrenome: String!
+}
+
+type Query{
+    user: User! 
+}
