@@ -1,8 +1,8 @@
-const express = require('express');
-const { connectDatabase } = require('./db');
-const { server } = require('./libs');
+var express = require('express');
+var { connectDatabase } = require('./db');
+var { server } = require('./libs');
 
-const registerInfoEndPoint = (app) => {
+var registerInfoEndPoint = (app) => {
     app.get('/api/info', (req, res, next) => {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(JSON.stringify(process.env));
@@ -11,7 +11,7 @@ const registerInfoEndPoint = (app) => {
     return app;
 }
 
-const initApp = async () => {
+var initApp = async () => {
     var app = express();
     var db = await connectDatabase(process.env.SQLAZURECONNSTR_MONGO_DB, 'api_message');
     server.registerGraphQL(app, '/api/graphql', db, true).then(pX => {
