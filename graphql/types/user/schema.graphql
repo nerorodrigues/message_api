@@ -1,9 +1,17 @@
+input RegisterUser{
+    email: String!
+    password: String!
+}
 type User{
-    id: ID!,
-    nome: String!,
-    sobrenome: String!
+    id: ID!
+    nome: String!
+    sobrenome: String
 }
 
 type Query{
     user: User! 
+}
+
+type Mutation{
+    signUp(user: RegisterUser!): [String]
 }

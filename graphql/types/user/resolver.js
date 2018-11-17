@@ -1,3 +1,5 @@
+const controller = require('../../../controllers/user');
+
 module.exports = {
     resolver: {
         User: {
@@ -6,12 +8,13 @@ module.exports = {
             sobrenome: () => 'Rodrigues'
         },
         Query: {
-            user: () => {
-                return {
-                    id: 2,
-                    nome: 'Rodrigues',
-                    sobrenome: 'Nero'
-                }
+            user: (root, args, { db }) => {
+                return controller.getUserList(db).toArray();
+            }
+        },
+        Mutation: {
+            signUp: async (root, args, { db }) => {
+                return await controller.saveUser(db, args)
             }
         }
     }

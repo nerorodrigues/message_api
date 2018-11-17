@@ -18,6 +18,8 @@
     "graphql": "^14.0.2",
     "graphql-iso-date": "^3.6.1",
     "graphql-subscriptions": "^1.0.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongodb": "^3.1.9",
     "schemaglue": "^4.0.2"
   }
 }
