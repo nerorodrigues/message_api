@@ -1,5 +1,6 @@
 const controller = require('../../../controllers/user');
-
+const bcryptjs = require('bcryptjs');
+const { auth } = require('../../../libs')
 module.exports = {
     resolver: {
         User: {
@@ -16,7 +17,7 @@ module.exports = {
                 if (user) {
                     var senha = await bcryptjs.hash(args.password, 10);
                     if (await bcryptjs.compare(args.password, user.password)) {
-                        return authenticate(
+                        return auth.authenticate(
                             { id: user._id, email: user.email },
                             { expiresIn: '1d' }
                         );
