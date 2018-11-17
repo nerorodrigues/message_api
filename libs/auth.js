@@ -18,17 +18,16 @@ module.exports = {
         });
         server.use(graphQLPath, auth);
     },
-    configureSubscriptionAuthMiddleware: (subscriptionPath, apolloServer) => {
-        apolloServer.subscriptionServerOptions = {
-            path: subscriptionPath,
-            onConnect: (connectionParams) => {
+    configureSubscriptionAuthMiddleware: (apolloServer) => {
+        if (apolloServer.subscriptionServerOptions)
+            apolloServer.subscriptionServerOptions.onConnect = (connectionParams) => {
                 if (connectionParams.authToken)
                     return verifyToken(connectionParams.authToken).then(pX => {
                         return pX;
                     });
                 throw new Error('Not authenticated');
-            }
-        }
+            };
+        return apolloServer;
     },
     authenticate: (user, options) => {
         var tokenOptions = {

@@ -1,17 +1,22 @@
 input RegisterUser{
+    userName: String!
     email: String!
     password: String!
+
 }
 type User{
     id: ID!
-    nome: String!
-    sobrenome: String
+    userName: String!
+    email: String
 }
 
 type Query{
-    user: User! 
+    user: [User] 
 }
 
 type Mutation{
-    signUp(user: RegisterUser!): [String]
+    signin(userName: String!, password: String!): String!
+    signUp(user: RegisterUser!): String
+    checkUserNameAvailability(userName: String!): Boolean!
+    checkEmailAvailability(email: String!): Boolean!
 }
