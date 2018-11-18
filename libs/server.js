@@ -34,16 +34,16 @@ module.exports = {
                 loggedIn: LoggedInDirective,
                 isTrue: IsTrueDirective
             },
-            // engine: {
-            //     apiKey: "service:nerorodrigues-6857:LRMTsdWJB1Rx3N9Rs72T0w"
-            // },
+            engine: {
+                apiKey: "service:nerorodrigues-6857:LRMTsdWJB1Rx3N9Rs72T0w"
+            },
             context: ({ req }) => (req ? { user: req.user, db } : null)
         });
 
-        // if (userSubscription)
-        //     configureSubscriptionMiddleware(server, apolloServer, subscriptionPath, useAuth);
-        // if (useAuth)
-        //     configureAuthMiddleware(server, '/api/graphql');
+        if (userSubscription)
+            configureSubscriptionMiddleware(server, apolloServer, subscriptionPath, useAuth);
+        if (useAuth)
+            configureAuthMiddleware(server, '/api/graphql');
 
         apolloServer.applyMiddleware({
             app: server,
