@@ -16,8 +16,17 @@ const initClient = async (strConnection = undefined || strConn2) => {
 const connectDatabase = async (strConnection = undefined || strConn2, dbName = undefined || strDbName) => {
     var client = await initClient(strConn);
     var db = client.db(dbName);
-    var collection = await db.collections();
-    return { ...db, ...collection.reduce((obj, collection) => ({ ...obj, [collection.collectionName]: collection }), {}) };
+    var collections = await db.collections();
+    for (let index = 0; index < modelNames.length; index++) {
+        var collection = collections.find((element) => {
+            return element.collectionName === modelNames[index];
+        });
+        if (!collection) {
+            var newCollection = await db.createCollection(modelNames[index]);
+            collections.push(newCollection);
+        }
+    }
+    return { ...db, ...collections.reduce((obj, collection) => ({ ...obj, [collection.collectionName]: collection }), {}) };
 }
 
 const seedDb = async (query, seedName) => {
