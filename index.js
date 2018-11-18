@@ -22,19 +22,19 @@ var initApp = async () => {
     server.registerGraphQL(app, '/api/graphql', db, true, true, 'api/subscription').then(pX => {
         registerInfoEndPoint(pX);
     });
-    app.on('listening', () => {
-        let duration = Date.now() - start;
-        appInsights.defaultClient.trackMetric({ name: 'Server Startup time', value: duration });
-    });
-    app.set((req, res) => {
-        // if (req.metho === 'GET') {
-        //     appInsights.defaultClient.trackNodeHttpRequest({
-        //         request: req,
-        //         response: res
-        //     });
-        //     res.end();
-        // }
-    });
+    // app.on('listening', () => {
+    //     let duration = Date.now() - start;
+    //     appInsights.defaultClient.trackMetric({ name: 'Server Startup time', value: duration });
+    // });
+    // app.set((req, res) => {
+    //     // if (req.metho === 'GET') {
+    //     //     appInsights.defaultClient.trackNodeHttpRequest({
+    //     //         request: req,
+    //     //         response: res
+    //     //     });
+    //     //     res.end();
+    //     // }
+    // });
     return app;
 }
 

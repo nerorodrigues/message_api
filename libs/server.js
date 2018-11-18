@@ -40,10 +40,10 @@ module.exports = {
             context: ({ req }) => (req ? { user: req.user, db } : null)
         });
 
-        if (userSubscription)
-            configureSubscriptionMiddleware(server, apolloServer, subscriptionPath, useAuth);
-        if (useAuth)
-            configureAuthMiddleware(server, '/api/graphql');
+        // if (userSubscription)
+        //     configureSubscriptionMiddleware(server, apolloServer, subscriptionPath, useAuth);
+        // if (useAuth)
+        //     configureAuthMiddleware(server, '/api/graphql');
 
         apolloServer.applyMiddleware({
             app: server,
