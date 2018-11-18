@@ -9,7 +9,11 @@ module.exports = {
         Query: {
             user: (root, args, { db }) => {
                 return controller.getUserList(db).toArray();
-            }
+            },
+            Me: async (root, args, { user, db }) => {
+                var data = await controller.findUserById(db, user.id);
+                return data;
+            },
         },
         Mutation: {
             signin: async (root, args, { db }) => {

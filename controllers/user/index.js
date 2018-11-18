@@ -1,4 +1,5 @@
 const bcryptjs = require('bcryptjs');
+const { ObjectID } = require('mongodb');
 module.exports = {
     getUserList: (db) => {
         return db.user.find();
@@ -6,9 +7,8 @@ module.exports = {
     findUser: (db, email) => {
         return db.user.findOne({ $or: [{ email: email }, { userName: email }] });
     },
-    findUserById: async(db, id) => {
-        var user = await db.user.find({});
-        return await db.user.findOne({ _id: id });
+    findUserById: async (db, id) => {
+        return await db.user.findOne({ _id: ObjectID(id) });
     },
     saveUser: async (db, { user }) => {
         var userData = await db.user.findOne({ $or: [{ userName: user.userName }, { email: user.email }] });
