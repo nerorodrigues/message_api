@@ -14,7 +14,7 @@ module.exports = {
     configureAuthMiddleware: (server, graphQLPath) => {
         var auth = jwt({
             secret: publicKEY,
-            credentialsRequired: true
+            credentialsRequired: false
         });
         server.use(graphQLPath, auth);
     },

@@ -1,3 +1,6 @@
+directive @loggedIn on OBJECT | FIELD_DEFINITION
+directive @isTrue on FIELD_DEFINITION
+
 input RegisterUser{
     userName: String!
     email: String!
@@ -12,6 +15,7 @@ type User{
 
 type Query{
     user: [User] 
+    Me: User @loggedIn @isTrue
 }
 
 type Mutation{
