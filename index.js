@@ -27,13 +27,13 @@ var initApp = async () => {
         appInsights.defaultClient.trackMetric({ name: 'Server Startup time', value: duration });
     });
     app.set((req, res) => {
-        if (req.metho === 'GET') {
-            appInsights.defaultClient.trackNodeHttpRequest({
-                request: req,
-                response: res
-            });
-            res.end();
-        }
+        // if (req.metho === 'GET') {
+        //     appInsights.defaultClient.trackNodeHttpRequest({
+        //         request: req,
+        //         response: res
+        //     });
+        //     res.end();
+        // }
     });
     return app;
 }
