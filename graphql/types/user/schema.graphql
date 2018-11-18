@@ -1,26 +1,38 @@
 directive @loggedIn on OBJECT | FIELD_DEFINITION
 directive @isTrue on FIELD_DEFINITION
 
+scalar DateTime
+
 input RegisterUser{
     userName: String!
     email: String!
     password: String!
 
 }
+input Profile{
+    name:String!,
+    lastName:String!,
+    birthDate: DateTime!
+}
+
 type User{
     id: ID!
     userName: String!
-    email: String
+    email: String!,
+    name: String,
+    lastName: String,
+    birthDate: DateTime
 }
 
 type Query{
     user: [User] 
-    Me: User @loggedIn @isTrue
+    me: User @loggedIn @isTrue
 }
 
 type Mutation{
     signin(userName: String!, password: String!): String!
-    signUp(user: RegisterUser!): String
-    checkUserNameAvailability(userName: String!): Boolean!
-    checkEmailAvailability(email: String!): Boolean!
+    signUp(user: RegisterUser!): Boolean
+    updateProfile(profile: Profile): User! @loggedIn
+    checkUserNameAvailability(userName: String!): Boolean! @loggedIn
+    checkEmailAvailability(email: String!): Boolean! @loggedIn
 }

@@ -1,5 +1,7 @@
 const bcryptjs = require('bcryptjs');
 const { ObjectID } = require('mongodb');
+
+
 module.exports = {
     getUserList: (db) => {
         return db.user.find();
@@ -24,7 +26,18 @@ module.exports = {
             await db.user.insert(user);
             return user
         }
-        throw new Error('The emails is alread taken');
+        throw new Error('The email/username is alread taken');
+    },
+    updateProfile: async (db, profile, userId) => {
+        let result = await db.user.updateOne({ _id: ObjectID(userId) }, {
+            $set: {
+                name: profile.name,
+                lastName: profile.lastName,
+                birthDate: new Date(profile.birthDate)
+            }
+        });
+
+        return db.user.findOne({ _id: ObjectID(userId) });
     },
     checkAvailability: async (db, data) => {
         return await db.user.count(data) == 0;

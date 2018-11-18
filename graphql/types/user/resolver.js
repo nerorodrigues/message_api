@@ -10,7 +10,7 @@ module.exports = {
             user: (root, args, { db }) => {
                 return controller.getUserList(db).toArray();
             },
-            Me: async (root, args, { user, db }) => {
+            me: async (root, args, { user, db }) => {
                 var data = await controller.findUserById(db, user.id);
                 return data;
             },
@@ -32,16 +32,19 @@ module.exports = {
             signUp: async (root, args, { db }) => {
                 try {
                     await controller.saveUser(db, args);
-                    return 'Success';
+                    return true;
                 } catch (error) {
-                    return error.message;
+                    throw error;
                 }
             },
+            updateProfile: async (root, args, { user, db }) => {
+                return await controller.updateProfile(db, args.profile, user.id);
+            },
             checkEmailAvailability: async (root, args, { db }) => {
-                return await controler.checkAvailability(db, { email: args.email });
+                return await controller.checkAvailability(db, { email: args.email });
             },
             checkUserNameAvailability: async (root, args, { db }) => {
-                return await controler.checkAvailability(db, { userName: args.userName });
+                return await controller.checkAvailability(db, { userName: args.userName });
             }
         }
     }
