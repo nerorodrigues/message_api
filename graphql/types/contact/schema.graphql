@@ -1,0 +1,9 @@
+type Query{
+    contactList: [User] @loggedIn
+    pendingsRequests: [User] @loggedIn
+    myContactRequests: [User] @loggedIn
+}
+type Mutation{
+    inviteContact(userId: ID!): Boolean @loggedIn
+    acceptContactInvite(requestId: ID!): Boolean @loggedIn
+}

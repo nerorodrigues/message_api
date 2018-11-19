@@ -7,8 +7,8 @@ module.exports = {
             id: ({ _id }) => _id.toString()
         },
         Query: {
-            user: (root, args, { db }) => {
-                return controller.getUserList(db).toArray();
+            searchUser: (root, { filter }, { db }) => {
+                return controller.findUsers(db, filter).toArray();
             },
             me: async (root, args, { user, db }) => {
                 var data = await controller.findUserById(db, user.id);

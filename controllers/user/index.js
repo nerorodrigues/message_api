@@ -6,8 +6,17 @@ module.exports = {
     getUserList: (db) => {
         return db.user.find();
     },
-    findUser: (db, email) => {
-        return db.user.findOne({ $or: [{ email: email }, { userName: email }] });
+    findUser: (db, filter) => {
+        return db.user.findOne({ $or: [{ email: filter }, { userName: filter }] });
+    },
+    findUsers: (db, filter) => {
+        var filterData = RegExp(filter);
+        return db.user.find({
+            $and: [
+                { name: { $exists: true } },
+                { $or: [{ email: filterData }, { userName: filterData }] }
+            ]
+        });
     },
     findUserById: async (db, id) => {
         return await db.user.findOne({ _id: ObjectID(id) });
@@ -28,8 +37,8 @@ module.exports = {
         }
         throw new Error('The email/username is alread taken');
     },
-    updateProfile: async (db, profile, userId) => {
-        let result = await db.user.updateOne({ _id: ObjectID(userId) }, {
+    updateProfile: (db, profile, userId) => {
+        let result = db.user.updateOne({ _id: ObjectID(userId) }, {
             $set: {
                 name: profile.name,
                 lastName: profile.lastName,

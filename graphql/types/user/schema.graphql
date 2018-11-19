@@ -25,7 +25,7 @@ type User{
 }
 
 type Query{
-    user: [User] 
+    searchUser(filter:String!): [User] @loggedIn
     me: User @loggedIn @isTrue
 }
 
